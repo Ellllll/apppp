@@ -22,7 +22,6 @@ namespace App1.Droid
 
 			base.OnCreate (bundle);
 
-            sqliteConn = new SQLiteConnection(dbPath);
 			global::Xamarin.Forms.Forms.Init (this, bundle);
 			LoadApplication (new App1.App ());
 		}
