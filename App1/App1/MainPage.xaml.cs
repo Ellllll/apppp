@@ -28,7 +28,7 @@ namespace App1
     [Table("UserInfo")]
     public class UserInfo
     {
-        [PrimaryKey, AutoIncrement, Collation("Id")]
+        [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
         public string UserName { get; set; }
         public string Pwd { get; set; }
@@ -55,7 +55,7 @@ namespace App1
         //LoginButton
         public ICommand _buttonClickCommand;
         //login property
-        public ICommand buttonClickCommand
+        public ICommand BUttonClickCommand
         {
             get { return _buttonClickCommand; }
             set { _buttonClickCommand = value; }
@@ -73,11 +73,7 @@ namespace App1
         private void Login(string userName,string pwd)
         {
             var sqliteConn=new Sqlite1();
-            var userInfoTable = sqliteConn.GetTableInfo(TableName);
-            if (userInfoTable.Count == 0)
-            {
-                sqliteConn.CreateTable<UserInfo>();
-            }
+            sqliteConn.CreateTable<UserInfo>();
             var userInfos = sqliteConn.Table<UserInfo>();
             var userInfo = userInfos.Where(p => p.Pwd == pwd && p.UserName == userName).FirstOrDefault();
             if (userInfo == null)
@@ -95,7 +91,7 @@ namespace App1
         //RegisterButton
         private ICommand register_;
         //register property
-        public ICommand register
+        public ICommand REgister
         {
             get { return register_; }
             set { register_ = value; }
