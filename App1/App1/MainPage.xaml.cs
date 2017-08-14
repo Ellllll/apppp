@@ -1,4 +1,6 @@
 ﻿
+using Android.Content;
+using Android.Content.Res;
 using Android.Widget;
 using SQLite;
 using System;
@@ -70,9 +72,9 @@ namespace App1
         {
             return true;
         }
-        private void Login(string userName,string pwd)
+        private void Login(string userName, string pwd)
         {
-            var sqliteConn=new Sqlite1();
+            var sqliteConn = new Sqlite1();
             sqliteConn.CreateTable<UserInfo>();
             var userInfos = sqliteConn.Table<UserInfo>();
             var userInfo = userInfos.Where(p => p.Pwd == pwd && p.UserName == userName).FirstOrDefault();
@@ -83,7 +85,11 @@ namespace App1
             else
             {
                 Toast.MakeText(Forms.Context, "登录成功", ToastLength.Short).Show();
+                var page = new Match();
+                Navigation.PushAsync(page);
+
             }
+
 
 
         }
