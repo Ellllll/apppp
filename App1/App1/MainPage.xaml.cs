@@ -108,6 +108,11 @@ namespace App1
         }
         private void Register(string userName, string pwd)
         {
+            var sqliteConn = new Sqlite1();
+            sqliteConn.CreateTable<UserInfo>();
+            UserInfo model = new UserInfo() { Id = 1, UserName = userName, Pwd = pwd };
+            sqliteConn.Insert(model);
+            Toast.MakeText(Forms.Context, "注册成功", ToastLength.Short).Show();
 
         }
 
