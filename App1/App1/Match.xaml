@@ -8,9 +8,11 @@
             <ContentPage.Content>
                 <StackLayout>
                     <StackLayout Orientation="Horizontal">
+                        <BoxView Color="Red"></BoxView>
                         <Label Text="登陆"></Label>
                     </StackLayout>
-                    <Label Text="to match"></Label>
+                    <Button Text="匹配"></Button>
+                    <Button Text="历史纪录"></Button>
                 </StackLayout>
             </ContentPage.Content>
         </ContentPage>
@@ -18,9 +20,7 @@
     <MasterDetailPage.Detail>
         <ContentPage>
             <ContentPage.Content>
-                <StackLayout>
-                    <Button Text="match"></Button>
-                </StackLayout>
+                <Button Text="match" VerticalOptions="Center" Command="{Binding ToMatch}"></Button>
             </ContentPage.Content>
         </ContentPage>
     </MasterDetailPage.Detail>

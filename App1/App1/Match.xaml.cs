@@ -15,6 +15,13 @@ namespace App1
 		public Match ()
 		{
 			InitializeComponent ();
+            BindingContext = new ToMatch();
 		}
+
 	}
+
+    public class ToMatch
+    {
+        
+    }
 }

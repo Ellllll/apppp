@@ -86,7 +86,7 @@ namespace App1
             {
                 Toast.MakeText(Forms.Context, "登录成功", ToastLength.Short).Show();
                 var page = new Match();
-                Navigation.PushAsync(page);
+                Application.Current.MainPage = new Match();
 
             }
 
