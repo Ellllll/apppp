@@ -19,6 +19,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Sqlite1.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sqlite2.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)MainPage.xaml">

@@ -2,11 +2,13 @@
 using Android.Content;
 using Android.Content.Res;
 using Android.Widget;
+using Newtonsoft.Json;
 using SQLite;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -29,6 +31,15 @@ namespace App1
 
     [Table("UserInfo")]
     public class UserInfo
+    {
+        [PrimaryKey, AutoIncrement]
+        public int Id { get; set; }
+        public string UserName { get; set; }
+        public string Pwd { get; set; }
+    }
+
+    [Table("UserLocalInfo")]
+    public class UserLocalInfo
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
@@ -74,20 +85,30 @@ namespace App1
         }
         private void Login(string userName, string pwd)
         {
-            var sqliteConn = new Sqlite1();
-            sqliteConn.CreateTable<UserInfo>();
-            var userInfos = sqliteConn.Table<UserInfo>();
-            var userInfo = userInfos.Where(p => p.Pwd == pwd && p.UserName == userName).FirstOrDefault();
-            if (userInfo == null)
-            {
-                Toast.MakeText(Forms.Context, "用户名或密码不正确", ToastLength.Short).Show();
-            }
-            else
-            {
-                Toast.MakeText(Forms.Context, "登录成功", ToastLength.Short).Show();
-                var page = new Match();
-                Application.Current.MainPage = new Match();
 
+            string loginUrl = string.Format("http://192.168.1.102:/api/user/LogOn?userName={0}&pwd={1}", userName, pwd);
+            var httpReq = (HttpWebRequest)WebRequest.Create(new Uri(loginUrl));
+            var httpRes = (HttpWebResponse)httpReq.GetResponse();
+            if (httpRes.StatusCode == HttpStatusCode.OK)
+            {
+                string result = new StreamReader(httpRes.GetResponseStream()).ReadToEnd();
+                result = result.Replace("\"", "'");
+                ReturnModel s = JsonConvert.DeserializeObject<ReturnModel>(result);
+                if (s.Code == "00000")
+                {
+                    Toast.MakeText(Forms.Context, "登录成功", ToastLength.Short).Show();
+                    var sqliteInfo = new Sqlite2();
+                    sqliteInfo.CreateTable<UserLocalInfo>();
+                    UserLocalInfo model = new UserLocalInfo() { Id = 1, UserName = userName, Pwd = pwd };
+                    sqliteInfo.Insert(model);
+                    var page = new Match();
+                    Application.Current.MainPage = new Match();
+                }
+                else
+                {
+                    Toast.MakeText(Forms.Context, "用户名或密码不正确", ToastLength.Short).Show();
+                    return;
+                }
             }
 
 
@@ -114,13 +135,32 @@ namespace App1
         }
         private void Register(string userName, string pwd)
         {
-            var sqliteConn = new Sqlite1();
-            sqliteConn.CreateTable<UserInfo>();
-            UserInfo model = new UserInfo() { Id = 1, UserName = userName, Pwd = pwd };
-            sqliteConn.Insert(model);
-            Toast.MakeText(Forms.Context, "注册成功", ToastLength.Short).Show();
+
+            string loginUrl = string.Format("http://192.168.1.102:/api/user/Regist?userName={0}&pwd={1}", userName, pwd);
+            var httpReq = (HttpWebRequest)WebRequest.Create(new Uri(loginUrl));
+            var httpRes = (HttpWebResponse)httpReq.GetResponse();
+            if (httpRes.StatusCode == HttpStatusCode.OK)
+            {
+                string result = new StreamReader(httpRes.GetResponseStream()).ReadToEnd();
+                result = result.Replace("\"", "'");
+                ReturnModel s = JsonConvert.DeserializeObject<ReturnModel>(result);
+                if (s.Code == "00000")
+                {
+                    Toast.MakeText(Forms.Context, "注册成功", ToastLength.Short).Show();
+                }
+                else
+                {
+                    Toast.MakeText(Forms.Context, "此账号已经被注册", ToastLength.Short).Show();
+                }
+            }
+ 
 
         }
 
+    }
+    public class ReturnModel
+    {
+        public string Code { get; set; }
+        public string Msg { get; set; }
     }
 }
