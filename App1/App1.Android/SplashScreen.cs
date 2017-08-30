@@ -6,7 +6,7 @@ using Android.Content;
 
 namespace App1.Droid
 {
-    [Activity(Label = "App1", Icon = "@drawable/icon", 
+    [Activity(Label = "TwoTalk", Icon = "@drawable/icon", 
         MainLauncher = true, NoHistory = true, Theme = "@style/Theme.Splash",
         ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class SplashScreen : Activity

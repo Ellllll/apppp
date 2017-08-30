@@ -2,11 +2,11 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:App1"
-             x:Class="App1.MainPage">
+             x:Class="App1.MainPage" >
     <ContentPage.Content>
-        <StackLayout Spacing="10" Padding="20" BackgroundColor="WhiteSmoke">
+        <StackLayout Spacing="10" Padding="20" BackgroundColor="WhiteSmoke" >
             <Entry Placeholder="请输入用户名" PlaceholderColor="BlueViolet" TextColor="BlueViolet" Text="{Binding UserNameText}" ></Entry>
-            <Entry Placeholder="请输入密码" PlaceholderColor="BlueViolet" TextColor="BlueViolet" Text="{Binding PwdText}"></Entry>
+            <Entry Placeholder="请输入密码" PlaceholderColor="BlueViolet" TextColor="BlueViolet" Text="{Binding PwdText}" IsPassword="True"></Entry>
             <Button BackgroundColor="BlueViolet" Text="登陆" Command="{Binding BUttonClickCommand}"></Button>
             <Button BackgroundColor="BlueViolet" Text="注册" Command="{Binding REgister}"></Button>
         </StackLayout>

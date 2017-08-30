@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.15
+VisualStudioVersion = 15.0.26430.16
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "App1", "App1\App1\App1.shproj", "{F811A387-8FB2-4040-8839-9F126EF6B966}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "TwoTalk", "App1\App1\TwoTalk.shproj", "{F811A387-8FB2-4040-8839-9F126EF6B966}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App1.Android", "App1\App1.Android\App1.Android.csproj", "{086833C2-D464-4255-AD93-1EAEEDF4F81A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwoTalk.Android", "App1\App1.Android\TwoTalk.Android.csproj", "{086833C2-D464-4255-AD93-1EAEEDF4F81A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App1.iOS", "App1\App1.iOS\App1.iOS.csproj", "{48ABE5DF-E551-48F2-BBCA-7C40E9E72821}"
 EndProject

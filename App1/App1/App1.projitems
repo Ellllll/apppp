@@ -6,20 +6,22 @@
     <SharedGUID>f811a387-8fb2-4040-8839-9f126ef6b966</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>App1</Import_RootNamespace>
+    <Import_RootNamespace>TwoTalk</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Call.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IfTalk.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Match.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Sqlite1.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Sqlite2.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TCPListener.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)MainPage.xaml">

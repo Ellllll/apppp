@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -56,8 +57,8 @@ namespace App1
         }
 
         //SQLite
-        static string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "userinfo.db3");
-        private const string TableName = "UserInfo";
+        //static string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "userinfo.db3");
+        //private const string TableName = "UserInfo";
 
         //username pwd
         private string userNameText;
@@ -83,17 +84,21 @@ namespace App1
         {
             return true;
         }
-        private void Login(string userName, string pwd)
+        static async void Login(string userName, string pwd)
         {
 
-            string loginUrl = string.Format("http://192.168.1.102:/api/user/LogOn?userName={0}&pwd={1}", userName, pwd);
-            var httpReq = (HttpWebRequest)WebRequest.Create(new Uri(loginUrl));
-            var httpRes = (HttpWebResponse)httpReq.GetResponse();
-            if (httpRes.StatusCode == HttpStatusCode.OK)
+            // Create a New HttpClient object.
+            HttpClient client = new HttpClient();
+
+            // Call asynchronous network methods in a try/catch block to handle exceptions
+            try
             {
-                string result = new StreamReader(httpRes.GetResponseStream()).ReadToEnd();
-                result = result.Replace("\"", "'");
-                ReturnModel s = JsonConvert.DeserializeObject<ReturnModel>(result);
+                HttpResponseMessage response = await client.GetAsync($"http://192.168.1.104:63439/api/connect?userName={userName}&userPwd={pwd}");
+                //response.EnsureSuccessStatusCode();
+                string responseBody = await response.Content.ReadAsStringAsync();
+                ReturnModel s = JsonConvert.DeserializeObject<ReturnModel>(responseBody);
+                // Above three lines can be replaced with new helper method below
+                // string responseBody = await client.GetStringAsync(uri);
                 if (s.Code == "00000")
                 {
                     Toast.MakeText(Forms.Context, "登录成功", ToastLength.Short).Show();
@@ -109,11 +114,24 @@ namespace App1
                     Toast.MakeText(Forms.Context, "用户名或密码不正确", ToastLength.Short).Show();
                     return;
                 }
+
+
+            }
+            catch (HttpRequestException e)
+            {
+                Console.WriteLine("\nException Caught!");
+                Console.WriteLine("Message :{0} ", e.Message);
             }
 
-
-
+            // Need to call dispose on the HttpClient object
+            // when done using it, so the app doesn't leak resources
+            client.Dispose();
         }
+        
+
+
+
+     
 
         //RegisterButton
         private ICommand register_;
@@ -133,28 +151,25 @@ namespace App1
         {
             return true;
         }
-        private void Register(string userName, string pwd)
+        private async void Register(string userName, string pwd)
         {
+            // Create a New HttpClient object.
+            HttpClient client = new HttpClient();
 
-            string loginUrl = string.Format("http://192.168.1.102:/api/user/Regist?userName={0}&pwd={1}", userName, pwd);
-            var httpReq = (HttpWebRequest)WebRequest.Create(new Uri(loginUrl));
-            var httpRes = (HttpWebResponse)httpReq.GetResponse();
-            if (httpRes.StatusCode == HttpStatusCode.OK)
+            HttpResponseMessage response = await client.GetAsync($"http://192.168.1.104:63439/api/connectregister?userName={userName}&userPwd={pwd}");
+            //response.EnsureSuccessStatusCode();
+            string responseBody = await response.Content.ReadAsStringAsync();
+            ReturnModel s = JsonConvert.DeserializeObject<ReturnModel>(responseBody);
+            // Above three lines can be replaced with new helper method below
+            // string responseBody = await client.GetStringAsync(uri);
+            if (s.Code == "00000")
             {
-                string result = new StreamReader(httpRes.GetResponseStream()).ReadToEnd();
-                result = result.Replace("\"", "'");
-                ReturnModel s = JsonConvert.DeserializeObject<ReturnModel>(result);
-                if (s.Code == "00000")
-                {
-                    Toast.MakeText(Forms.Context, "注册成功", ToastLength.Short).Show();
-                }
-                else
-                {
-                    Toast.MakeText(Forms.Context, "此账号已经被注册", ToastLength.Short).Show();
-                }
+                Toast.MakeText(Forms.Context, "注册成功", ToastLength.Short).Show();
             }
- 
-
+            else
+            {
+                Toast.MakeText(Forms.Context, "此账号已经被注册", ToastLength.Short).Show();
+            }
         }
 
     }
