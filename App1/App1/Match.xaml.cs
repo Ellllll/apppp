@@ -41,6 +41,7 @@ namespace App1
         private void Matching(object args)
         {
             var TCPlistener = new TCPListener();
+           
             Byte[] data=new Byte[12];
                 // String to store the response ASCII representation.
             String responseData = String.Empty;

@@ -93,7 +93,7 @@ namespace App1
             // Call asynchronous network methods in a try/catch block to handle exceptions
             try
             {
-                HttpResponseMessage response = await client.GetAsync($"http://192.168.1.104:63439/api/connect?userName={userName}&userPwd={pwd}");
+                HttpResponseMessage response = await client.GetAsync($"http://39.108.122.78:63439/api/connect?userName={userName}&userPwd={pwd}");
                 //response.EnsureSuccessStatusCode();
                 string responseBody = await response.Content.ReadAsStringAsync();
                 ReturnModel s = JsonConvert.DeserializeObject<ReturnModel>(responseBody);
@@ -156,7 +156,7 @@ namespace App1
             // Create a New HttpClient object.
             HttpClient client = new HttpClient();
 
-            HttpResponseMessage response = await client.GetAsync($"http://192.168.1.104:63439/api/connectregister?userName={userName}&userPwd={pwd}");
+            HttpResponseMessage response = await client.GetAsync($"http://39.108.122.78:63439/api/connectregister?userName={userName}&pwd={pwd}");
             //response.EnsureSuccessStatusCode();
             string responseBody = await response.Content.ReadAsStringAsync();
             ReturnModel s = JsonConvert.DeserializeObject<ReturnModel>(responseBody);

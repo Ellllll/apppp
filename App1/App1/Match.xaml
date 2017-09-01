@@ -2,9 +2,10 @@
 <MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms"
                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                   xmlns:local="clr-namespace:App1"
-                  x:Class="App1.Match">
+                  x:Class="App1.Match"
+                  BackgroundImage="blackandwhite">
     <MasterDetailPage.Master>
-        <ContentPage Title="Master" BackgroundColor="Gray" >
+        <ContentPage Title="Master" BackgroundImage="blackandwhite" Padding="5,25,5,5">
             <ContentPage.Content>
                 <StackLayout>
                     <StackLayout Orientation="Horizontal">
@@ -18,9 +19,9 @@
         </ContentPage>
     </MasterDetailPage.Master>
     <MasterDetailPage.Detail>
-        <ContentPage>
+        <ContentPage >
             <ContentPage.Content>
-                <Button Text="match" VerticalOptions="Center" Command="{Binding ToMatch}"></Button>
+                <Button Text="match" BackgroundColor="AntiqueWhite" FontSize="Large" Opacity="0.8" VerticalOptions="Center" Command="{Binding ToMatch}" WidthRequest="120" HeightRequest="50"></Button>
             </ContentPage.Content>
         </ContentPage>
     </MasterDetailPage.Detail>

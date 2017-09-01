@@ -14,6 +14,7 @@ namespace App1
 {
     class Call : ContentPage
     {
+        
         class Message
         {
             public Message(string MessageString, TextAlignment Horizon_)
@@ -29,7 +30,8 @@ namespace App1
         Button sendButton = new Button
         {
             Text = "Send",
-            WidthRequest = 70
+            WidthRequest = 70,
+            BackgroundColor = Color.Pink
         };
 
         Entry entryMessage = new Entry
@@ -53,6 +55,7 @@ namespace App1
 
         public Call()
         {
+            BackgroundImage = "callbackground";
             message.Clear();
             Label header = new Label
             {
@@ -64,6 +67,7 @@ namespace App1
             Button outButton = new Button
             {
                 Text = "Out",
+                BackgroundColor = Color.Pink
             };
             StackLayout Headers = new StackLayout
             {
@@ -83,37 +87,38 @@ namespace App1
 
 
             //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            // Create the ListView.
+
             MessageList = new ListView
             {
-                // Source of data items.
                 ItemsSource = message,
-
-            // Define template for displaying each item.
-            // (Argument of DataTemplate constructor is called for 
-            //      each item; it must return a Cell derivative.)
-
-
+                SeparatorColor = Color.Transparent,
 
             ItemTemplate = new DataTemplate(() =>
                 {
+                    HeightRequest = 120;
                     Label timeLabel = new Label();
                     Label messageLabel = new Label();
                     // Create views with bindings for displaying each property.
                     timeLabel.SetBinding(Label.TextProperty, "Time");
+                    timeLabel.HeightRequest = 20;
                     timeLabel.SetBinding(Label.HorizontalTextAlignmentProperty, "Horizon");
+                    timeLabel.VerticalTextAlignment = TextAlignment.Start;
                     messageLabel.SetBinding(Label.TextProperty, "AMessage");
+                    messageLabel.HeightRequest = 20;
+                    messageLabel.VerticalTextAlignment = TextAlignment.End;
                     messageLabel.SetBinding(Label.HorizontalTextAlignmentProperty, "Horizon");
-                    
+                    messageLabel.TextColor = Color.Black;
+                    messageLabel.FontSize = 20;
+
 
                     return new ViewCell
                     {
-                        
+                        Height =120,
                         View = new StackLayout
                         {
                             BackgroundColor = Color.Transparent,
-                            HeightRequest=80,
-                            Padding = new Thickness(0, 0,2,5),
+                            HeightRequest=120,
+                            Padding = new Thickness(5, 5,5,5),
                             Children =
                             {
                                 timeLabel,
