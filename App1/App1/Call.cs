@@ -92,6 +92,7 @@ namespace App1
             {
                 ItemsSource = message,
                 SeparatorColor = Color.Transparent,
+                RowHeight = 80,
 
             ItemTemplate = new DataTemplate(() =>
                 {
@@ -104,7 +105,7 @@ namespace App1
                     timeLabel.SetBinding(Label.HorizontalTextAlignmentProperty, "Horizon");
                     timeLabel.VerticalTextAlignment = TextAlignment.Start;
                     messageLabel.SetBinding(Label.TextProperty, "AMessage");
-                    messageLabel.HeightRequest = 20;
+                    messageLabel.HeightRequest = 30;
                     messageLabel.VerticalTextAlignment = TextAlignment.End;
                     messageLabel.SetBinding(Label.HorizontalTextAlignmentProperty, "Horizon");
                     messageLabel.TextColor = Color.Black;
@@ -113,7 +114,6 @@ namespace App1
 
                     return new ViewCell
                     {
-                        Height =120,
                         View = new StackLayout
                         {
                             BackgroundColor = Color.Transparent,
