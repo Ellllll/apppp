@@ -209,7 +209,7 @@ namespace App1
         void SendMessageTOList(string messageString, TextAlignment Horizon_)//BindableProperty horizon
         {
             message.Add(new Message(messageString, Horizon_));
-            MessageList.ScrollTo(message[message.Count - 1], ScrollToPosition.End, true);
+            MessageList.ScrollTo(message[message.Count-1], ScrollToPosition.Start, true);
 
         }
         public static byte[] StructToBytes(object structObj)
